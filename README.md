@@ -20,5 +20,3 @@ Here is the tech I'm currently excited about:
 
 - E-mail: [hello@hectorsosa.me](https://hectorsosa.me/email)
 - Website: https://hectorsosa.me
-- Whatsapp: [(420)608984789](https://wa.me/420608984789)
-- Telegram: [t.me/ekqt](https://hectorsosa.me/telegram)
