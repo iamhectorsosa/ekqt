@@ -35,6 +35,8 @@ export default async function handler(req: NextRequest) {
             padding: "60px",
             letterSpacing: "-0.05em",
             textAlign: "center",
+            color: "#f8fafc",
+            backgroundColor: "#0f172a",
           }}
         >
           <h1

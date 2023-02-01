@@ -18,6 +18,7 @@ export default async function revalidate(
       return res.status(401).send(message);
     }
 
+    await res.revalidate(`/blog`);
     await res.revalidate(`/blog/${body.slug}`);
     const updatedRoute = `Updated route: ${body.slug}`;
     console.log(updatedRoute);
