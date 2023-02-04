@@ -2,6 +2,7 @@ import { defineConfig } from "sanity";
 import { deskTool } from "sanity/desk";
 import { useMetaAction } from "./actions/useMetaAction";
 import defaultDocumentNode from "./plugins/defaultDocumentNode";
+import { markdownSchema } from "./plugins/markdown";
 import post from "./schemas/post";
 
 export const sanityConfig = {
@@ -19,7 +20,7 @@ export default defineConfig({
   schema: {
     types: [post],
   },
-  plugins: [deskTool({ defaultDocumentNode })],
+  plugins: [deskTool({ defaultDocumentNode }), markdownSchema()],
   document: {
     actions: [useMetaAction],
   },
