@@ -8,13 +8,13 @@ import Loading from "../UI/Loading";
 import Post from "./BlogPost";
 
 export default function PreviewBlogPost({
-  query,
+  slug,
   preview,
 }: {
-  query: typeof postQueryBySlug;
+  slug: typeof postQueryBySlug;
   preview: boolean;
 }) {
-  const post: PostType = usePreview(null, query);
+  const post: PostType = usePreview(null, postQueryBySlug, { slug });
   const [source, setSource] = useState<MDXRemoteSerializeResult>();
 
   useEffect(() => {

@@ -1,22 +1,24 @@
 import { type InferGetStaticPropsType } from "next";
 import getMdx from "@/utils/getMdx";
-import { getAllPosts, getPostBySlug, postQueryBySlug } from "@/sanity/queries";
+import { getAllPosts, getPostBySlug } from "@/sanity/queries";
+import BlogPost from "@/components/blog/BlogPost";
+
+import { lazy } from "react";
 import { PreviewSuspense } from "next-sanity/preview";
 import Loading from "@/components/UI/Loading";
-import { lazy } from "react";
-import BlogPost from "@/components/blog/BlogPost";
+
 const PreviewBlogPost = lazy(() => import("@/components/blog/PreviewBlogPost"));
 
 export default function Blog({
   post,
   source,
   preview,
-  query,
+  slug,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   if (preview) {
     return (
       <PreviewSuspense fallback={<Loading />}>
-        <PreviewBlogPost preview={preview} query={query} />
+        <PreviewBlogPost preview={preview} slug={slug} />
       </PreviewSuspense>
     );
   }
@@ -45,9 +47,8 @@ export const getStaticProps = async ({
   preview: boolean;
 }) => {
   if (preview) {
-    const query = postQueryBySlug.replace(`$slug`, `"${slug}"`);
     return {
-      props: { preview, query },
+      props: { preview, slug },
     };
   }
 
