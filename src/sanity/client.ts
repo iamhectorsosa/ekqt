@@ -5,7 +5,7 @@ const sanity = sanityClient({
   projectId: sanityConfig.projectId,
   dataset: sanityConfig.dataset,
   apiVersion: sanityConfig.apiVersion,
-  token: `${process.env.SANITY_TOKEN}`,
+  token: sanityConfig.token,
   useCdn: false,
 });
 
