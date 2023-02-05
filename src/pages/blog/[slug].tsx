@@ -11,15 +11,12 @@ export default function Blog({
   post,
   source,
   preview,
-  slug,
+  query,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   if (preview) {
     return (
       <PreviewSuspense fallback={<Loading />}>
-        <PreviewBlogPost
-          preview={preview}
-          query={postQueryBySlug.replace(`$slug`, `"${slug}"`)}
-        />
+        <PreviewBlogPost preview={preview} query={query} />
       </PreviewSuspense>
     );
   }
@@ -48,8 +45,9 @@ export const getStaticProps = async ({
   preview: boolean;
 }) => {
   if (preview) {
+    const query = postQueryBySlug.replace(`$slug`, `"${slug}"`);
     return {
-      props: { preview, slug },
+      props: { preview, query },
     };
   }
 

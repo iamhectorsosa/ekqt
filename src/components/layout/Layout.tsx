@@ -20,9 +20,9 @@ export default function Layout({
         path={path}
       />
       {preview && <Preview />}
-      {!preview && <Navbar links={pages} />}
+      <Navbar links={pages} />
       <main className="container-width py-16">{children}</main>
-      {!preview && <Footer links={socials} />}
+      <Footer links={socials} />
     </>
   );
 }

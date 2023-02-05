@@ -1,11 +1,11 @@
 import { usePreview } from "@/sanity/preview";
 import { postQueryBySlug } from "@/sanity/queries";
-import { type Post } from "@/sanity/schemas/post";
+import { type Post as PostType } from "@/sanity/schemas/post";
 import getMdx from "@/utils/getMdx";
 import { type MDXRemoteSerializeResult } from "next-mdx-remote";
 import { useEffect, useState } from "react";
 import Loading from "../UI/Loading";
-import BlogPost from "./BlogPost";
+import Post from "./BlogPost";
 
 export default function PreviewBlogPost({
   query,
@@ -14,7 +14,7 @@ export default function PreviewBlogPost({
   query: typeof postQueryBySlug;
   preview: boolean;
 }) {
-  const post: Post = usePreview(null, query);
+  const post: PostType = usePreview(null, query);
   const [source, setSource] = useState<MDXRemoteSerializeResult>();
 
   useEffect(() => {
@@ -29,5 +29,5 @@ export default function PreviewBlogPost({
     return <Loading />;
   }
 
-  return <BlogPost post={post} source={source} preview />;
+  return <Post preview={preview} post={post} source={source} />;
 }
