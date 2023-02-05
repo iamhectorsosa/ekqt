@@ -1,28 +1,32 @@
 import { type InferGetStaticPropsType } from "next";
-import Layout from "@/components/layout/Layout";
-import Card from "@/components/UI/Card";
-import { getAllPosts } from "@/sanity/queries";
+import { allPostsQuery, getAllPosts } from "@/sanity/queries";
+import { lazy } from "react";
+import { PreviewSuspense } from "next-sanity/preview";
+import BlogHome from "@/components/blog/BlogHome";
+import Loading from "@/components/UI/Loading";
+const PreviewBlogs = lazy(() => import("@/components/blog/PreviewBlogHome"));
 
 export default function Blog({
   posts,
+  preview,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  return (
-    <Layout title="Blog" path="blog">
-      <section>
-        <header className="mb-6">
-          <h2 className="text-3xl font-bold sm:text-4xl">All Posts</h2>
-        </header>
-        <div className="divide-y divide-slate-500">
-          {posts.map((post, index) => (
-            <Card key={index} post={post} />
-          ))}
-        </div>
-      </section>
-    </Layout>
-  );
+  if (preview) {
+    return (
+      <PreviewSuspense fallback={<Loading />}>
+        <PreviewBlogs preview={preview} query={allPostsQuery} />
+      </PreviewSuspense>
+    );
+  }
+
+  return <BlogHome posts={posts} />;
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ preview = false }) {
+  if (preview) {
+    return {
+      props: { preview },
+    };
+  }
   const posts = await getAllPosts();
 
   return {

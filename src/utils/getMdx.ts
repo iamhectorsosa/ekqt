@@ -7,6 +7,7 @@ export default async function getMdx(source: string) {
   return await serialize(source, {
     parseFrontmatter: true,
     mdxOptions: {
+      development: true,
       rehypePlugins: [
         rehypeSlug,
         rehypePrism,
