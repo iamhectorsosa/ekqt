@@ -2,7 +2,9 @@ import { z } from "zod";
 
 const envVariables = z.object({
   SANITY_TOKEN: z.string(),
-  SANITY_REVALIDATE_SECRET: z.string(),
+  NEXT_PUBLIC_SANITY_PROJECT_ID: z.string(),
+  NEXT_PUBLIC_SANITY_DATASET: z.string(),
+  NEXT_PUBLIC_SANITY_API_VERSION: z.string(),
 });
 
 envVariables.parse(process.env);
