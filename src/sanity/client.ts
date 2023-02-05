@@ -1,7 +1,7 @@
-import sanityClient from "@sanity/client";
 import { sanityConfig } from "./config";
+import { createClient } from "next-sanity";
 
-const sanity = sanityClient({
+const sanity = createClient({
   projectId: sanityConfig.projectId,
   dataset: sanityConfig.dataset,
   apiVersion: sanityConfig.apiVersion,
