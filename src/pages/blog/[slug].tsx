@@ -1,46 +1,29 @@
 import { type InferGetStaticPropsType } from "next";
-import Layout from "@/components/layout/Layout";
 import getMdx from "@/utils/getMdx";
-import { MDXRemote } from "next-mdx-remote";
-import dayjs from "dayjs";
 import { getAllPosts, getPostBySlug } from "@/sanity/queries";
+import BlogPost from "@/components/blog/BlogPost";
 
-export default function BlogPost({
+import { lazy } from "react";
+import { PreviewSuspense } from "next-sanity/preview";
+import Loading from "@/components/UI/Loading";
+
+const PreviewBlogPost = lazy(() => import("@/components/blog/PreviewBlogPost"));
+
+export default function Blog({
   post,
   source,
+  preview,
+  slug,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  return (
-    <Layout
-      title={post.title}
-      description={post.description}
-      path={`blog/${post.slug}`}
-    >
-      <section>
-        <header className="mb-6 space-y-2">
-          <h2 className="text-3xl font-bold sm:text-5xl">{post.title}</h2>
-          <div className="text-sm text-slate-500">
-            {!post.publishedAt || !post.readingTime ? (
-              "Draft"
-            ) : (
-              <>
-                <span>
-                  {dayjs(post.publishedAt).format("dddd DD MMMM YYYY")}
-                </span>
-                {" · "}
-                <span> {post.readingTime} min read</span>
-              </>
-            )}
-          </div>
-        </header>
-        <article
-          aria-label="Post"
-          className="prose:slate prose min-w-full prose-p:text-justify dark:prose-invert lg:prose-lg"
-        >
-          <MDXRemote {...source} />
-        </article>
-      </section>
-    </Layout>
-  );
+  if (preview) {
+    return (
+      <PreviewSuspense fallback={<Loading />}>
+        <PreviewBlogPost preview={preview} slug={slug} />
+      </PreviewSuspense>
+    );
+  }
+
+  return <BlogPost post={post} source={source} />;
 }
 
 export async function getStaticPaths() {
@@ -58,9 +41,17 @@ export async function getStaticPaths() {
 
 export const getStaticProps = async ({
   params: { slug },
+  preview = false,
 }: {
   params: { slug: string };
+  preview: boolean;
 }) => {
+  if (preview) {
+    return {
+      props: { preview, slug },
+    };
+  }
+
   const post = await getPostBySlug(slug);
   const source = await getMdx(post.body);
 

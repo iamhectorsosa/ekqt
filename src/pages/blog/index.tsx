@@ -1,13 +1,13 @@
 import { type InferGetStaticPropsType } from "next";
+import { getAllPosts } from "@/sanity/queries";
 import Layout from "@/components/layout/Layout";
 import Card from "@/components/UI/Card";
-import { getAllPosts } from "@/sanity/queries";
 
 export default function Blog({
   posts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
-    <Layout title="Blog" path="blog">
+    <Layout title="Blog" description="Read more" path="blog">
       <section>
         <header className="mb-6">
           <h2 className="text-3xl font-bold sm:text-4xl">All Posts</h2>

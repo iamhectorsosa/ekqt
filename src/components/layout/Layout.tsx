@@ -1,7 +1,7 @@
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import { useRouter } from "next/router";
 import Meta, { type MetaProps } from "../Meta";
+import Preview from "./Preview";
 
 export default function Layout({
   children,
@@ -9,18 +9,8 @@ export default function Layout({
   description,
   baseUrl,
   path,
-}: { children: React.ReactNode } & MetaProps) {
-  const {
-    query: { preview },
-  } = useRouter();
-  if (preview) {
-    return (
-      <div className="py-12">
-        <main className="container-width">{children}</main>
-      </div>
-    );
-  }
-
+  preview = false,
+}: { children: React.ReactNode; preview?: boolean } & MetaProps) {
   return (
     <>
       <Meta
@@ -29,6 +19,7 @@ export default function Layout({
         baseUrl={baseUrl}
         path={path}
       />
+      {preview && <Preview />}
       <Navbar links={pages} />
       <main className="container-width py-16">{children}</main>
       <Footer links={socials} />

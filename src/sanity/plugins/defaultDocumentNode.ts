@@ -17,7 +17,7 @@ const defaultDocumentNode: DefaultDocumentNodeResolver = (
               if (!doc.slug) {
                 return `/404`;
               }
-              return `/blog/${doc.slug}?preview=true`;
+              return `/api/preview/?slug=${doc.slug}`;
             },
           })
           .title("Preview"),
