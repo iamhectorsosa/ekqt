@@ -13,7 +13,7 @@ export default function Card({ post }: { post: Post }) {
       <span className="text-sm font-light">
         {dayjs(publishedAt).format("D MMM YYYY")}
       </span>
-      <p>{description}</p>
+      <p className="font-light">{description}</p>
     </Link>
   );
 }

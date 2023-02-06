@@ -1,7 +1,21 @@
 import Layout from "@/components/layout/Layout";
 import dayjs from "dayjs";
 import { type Post } from "@/sanity/schemas/post";
-import { MDXRemote, type MDXRemoteSerializeResult } from "next-mdx-remote";
+import {
+  MDXRemote,
+  type MDXRemoteProps,
+  type MDXRemoteSerializeResult,
+} from "next-mdx-remote";
+
+const components = {
+  blockquote: ({ children }: { children: React.ReactNode }) => (
+    <div className="not-prose after:leading-0 relative my-8 rounded-md border border-transparent bg-slate-200/50 p-8 before:absolute before:top-2 before:left-4 before:text-9xl before:opacity-10 before:content-[open-quote] after:invisible after:absolute after:content-[close-quote] dark:bg-slate-800/75">
+      <blockquote className="text-lg font-medium leading-relaxed md:text-2xl md:leading-9">
+        {children}
+      </blockquote>
+    </div>
+  ),
+} as MDXRemoteProps["components"];
 
 export default function BlogPost({
   post,
@@ -38,9 +52,9 @@ export default function BlogPost({
         </header>
         <article
           aria-label="Post"
-          className="prose:slate prose min-w-full prose-p:text-justify dark:prose-invert lg:prose-lg"
+          className="prose:slate prose min-w-full dark:prose-invert lg:prose-lg"
         >
-          <MDXRemote {...source} />
+          <MDXRemote {...source} components={components} />
         </article>
       </section>
     </Layout>
