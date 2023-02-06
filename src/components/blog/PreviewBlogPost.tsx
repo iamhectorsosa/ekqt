@@ -1,11 +1,15 @@
 import { usePreview } from "@/sanity/preview";
 import { postQueryBySlug } from "@/sanity/queries";
-import { type Post as PostType } from "@/sanity/schemas/post";
+import { type Post } from "@/sanity/schemas/post";
 import getMdx from "@/utils/getMdx";
+import { useQuery } from "@tanstack/react-query";
 import { type MDXRemoteSerializeResult } from "next-mdx-remote";
-import { useEffect, useState } from "react";
 import Loading from "../UI/Loading";
-import Post from "./BlogPost";
+import BlogPost from "./BlogPost";
+
+async function getSource(body: string): Promise<MDXRemoteSerializeResult> {
+  return await getMdx(body);
+}
 
 export default function PreviewBlogPost({
   slug,
@@ -14,20 +18,16 @@ export default function PreviewBlogPost({
   slug: typeof postQueryBySlug;
   preview: boolean;
 }) {
-  const post: PostType = usePreview(null, postQueryBySlug, { slug });
-  const [source, setSource] = useState<MDXRemoteSerializeResult>();
+  const post: Post = usePreview(null, postQueryBySlug, { slug });
+  const { data: source, isLoading } = useQuery(
+    ["post"],
+    () => getSource(post.body),
+    { enabled: !!post.body }
+  );
 
-  useEffect(() => {
-    async function loadMdx() {
-      const result = await getMdx(post.body);
-      setSource(result);
-    }
-    loadMdx();
-  }, [post]);
-
-  if (!source) {
+  if (isLoading || !source) {
     return <Loading />;
   }
 
-  return <Post preview={preview} post={post} source={source} />;
+  return <BlogPost preview={preview} post={post} source={source} />;
 }

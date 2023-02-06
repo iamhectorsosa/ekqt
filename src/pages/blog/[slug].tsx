@@ -3,11 +3,13 @@ import getMdx from "@/utils/getMdx";
 import { getAllPosts, getPostBySlug } from "@/sanity/queries";
 import BlogPost from "@/components/blog/BlogPost";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { lazy } from "react";
 import { PreviewSuspense } from "next-sanity/preview";
 import Loading from "@/components/UI/Loading";
-
 const PreviewBlogPost = lazy(() => import("@/components/blog/PreviewBlogPost"));
+
+const queryClient = new QueryClient();
 
 export default function Blog({
   post,
@@ -17,9 +19,11 @@ export default function Blog({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   if (preview) {
     return (
-      <PreviewSuspense fallback={<Loading />}>
-        <PreviewBlogPost preview={preview} slug={slug} />
-      </PreviewSuspense>
+      <QueryClientProvider client={queryClient}>
+        <PreviewSuspense fallback={<Loading />}>
+          <PreviewBlogPost preview={preview} slug={slug} />
+        </PreviewSuspense>
+      </QueryClientProvider>
     );
   }
 
