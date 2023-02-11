@@ -1,5 +1,6 @@
 import sanity from "./client";
 import { type Post } from "./schemas/post";
+import { type Settings } from "./schemas/settings";
 
 const postPreviewFields = `{
     _id,
@@ -31,4 +32,18 @@ export async function getPostBySlug(slug: Post["slug"]): Promise<Post> {
   return await sanity.fetch(postQueryBySlug, {
     slug,
   });
+}
+
+const settingsFields = `{
+    _id,
+    bio,
+    socials
+}`;
+
+export const settingsQuery = `*[_type == "settings"] | order(_updatedAt desc)[0]`;
+
+export async function getSettings(
+  fields: string = settingsFields
+): Promise<Settings> {
+  return await sanity.fetch(`${settingsQuery} ${fields}`);
 }

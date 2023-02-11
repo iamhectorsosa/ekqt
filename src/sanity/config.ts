@@ -4,6 +4,7 @@ import { useMetaAction } from "./actions/useMetaAction";
 import defaultDocumentNode from "./plugins/defaultDocumentNode";
 import { markdownSchema } from "./plugins/markdown";
 import post from "./schemas/post";
+import settings from "./schemas/settings";
 
 export const sanityConfig = {
   basePath: "/studio",
@@ -19,10 +20,21 @@ export default defineConfig({
   dataset: sanityConfig.dataset,
   title: "Hector Sosa",
   schema: {
-    types: [post],
+    types: [post, settings],
   },
   plugins: [deskTool({ defaultDocumentNode }), markdownSchema()],
   document: {
-    actions: [useMetaAction],
+    actions: (prev, context) => {
+      switch (context.schemaType) {
+        case "post":
+          return [...prev, useMetaAction];
+        case "settings":
+          return prev.filter(
+            ({ action }) => action !== "delete" && action !== "unpublish"
+          );
+        default:
+          return prev;
+      }
+    },
   },
 });

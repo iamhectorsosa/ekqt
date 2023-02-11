@@ -5,7 +5,7 @@ import Meta from "@/components/Meta";
 export default function StudioPage() {
   return (
     <>
-      <Meta title="Studio" />
+      <Meta title="Studio" description="Sanity CMS" path="studio" />
       <NextStudio config={config} />
     </>
   );

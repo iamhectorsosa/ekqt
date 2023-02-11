@@ -16,7 +16,7 @@ export default function Anchor({
       {...props}
       href={String(href)}
       className={`inline-flex w-fit items-center gap-0.5 whitespace-nowrap border-b border-black px-0.5 py-1 font-light leading-none ring-offset-white hover:text-black/70 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:border-white dark:ring-offset-black dark:hover:text-white/70
-            ${cx(variant === "nav" && "group border-none text-lg")}
+            ${cx(variant === "nav" && "group border-none py-3 text-lg")}
             `}
     >
       {children}

@@ -6,6 +6,7 @@ import {
   type MDXRemoteProps,
   type MDXRemoteSerializeResult,
 } from "next-mdx-remote";
+import { Settings } from "@/sanity/schemas/settings";
 
 const components = {
   blockquote: ({ children }: { children: React.ReactNode }) => (
@@ -20,10 +21,12 @@ const components = {
 export default function BlogPost({
   post,
   source,
+  socials,
   preview,
 }: {
   post: Post;
   source: MDXRemoteSerializeResult;
+  socials: Settings["socials"];
   preview?: boolean;
 }) {
   return (
@@ -31,6 +34,7 @@ export default function BlogPost({
       title={post.title}
       description={post.description}
       path={`blog/${post.slug}`}
+      socials={socials}
       preview={preview}
     >
       <section>
