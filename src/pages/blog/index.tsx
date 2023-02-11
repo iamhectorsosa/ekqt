@@ -1,13 +1,15 @@
 import { type InferGetStaticPropsType } from "next";
-import { getAllPosts } from "@/sanity/queries";
+import { getAllPosts, getSettings } from "@/sanity/queries";
 import Layout from "@/components/layout/Layout";
 import Card from "@/components/UI/Card";
+import { Settings } from "@/sanity/schemas/settings";
 
 export default function Blog({
+  socials,
   posts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
-    <Layout title="Blog" description="Read more" path="blog">
+    <Layout title="Blog" description="Read more" path="blog" socials={socials}>
       <section>
         <header className="mb-6">
           <h2 className="text-3xl font-bold sm:text-4xl">All Posts</h2>
@@ -23,10 +25,15 @@ export default function Blog({
 }
 
 export async function getStaticProps() {
+  const { socials } = await getSettings(`{
+    _id,
+    socials
+  }`);
   const posts = await getAllPosts();
 
   return {
     props: {
+      socials,
       posts,
     },
     revalidate: 60,

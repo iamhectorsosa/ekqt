@@ -1,17 +1,19 @@
 import { type InferGetStaticPropsType } from "next";
 import getMdx from "@/utils/getMdx";
-import { getAllPosts, getPostBySlug } from "@/sanity/queries";
+import { getAllPosts, getPostBySlug, getSettings } from "@/sanity/queries";
 import BlogPost from "@/components/blog/BlogPost";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { lazy } from "react";
 import { PreviewSuspense } from "next-sanity/preview";
 import Loading from "@/components/UI/Loading";
+import { Settings } from "@/sanity/schemas/settings";
 const PreviewBlogPost = lazy(() => import("@/components/blog/PreviewBlogPost"));
 
 const queryClient = new QueryClient();
 
 export default function Blog({
+  socials,
   post,
   source,
   preview,
@@ -27,7 +29,7 @@ export default function Blog({
     );
   }
 
-  return <BlogPost post={post} source={source} />;
+  return <BlogPost post={post} source={source} socials={socials} />;
 }
 
 export async function getStaticPaths() {
@@ -56,11 +58,16 @@ export const getStaticProps = async ({
     };
   }
 
+  const { socials } = await getSettings(`{
+    _id,
+    socials
+  }`);
   const post = await getPostBySlug(slug);
   const source = await getMdx(post.body);
 
   return {
     props: {
+      socials,
       post,
       source,
     },

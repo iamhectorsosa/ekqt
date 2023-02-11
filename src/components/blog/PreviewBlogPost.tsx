@@ -1,5 +1,5 @@
 import { usePreview } from "@/sanity/preview";
-import { postQueryBySlug } from "@/sanity/queries";
+import { postQueryBySlug, settingsQuery } from "@/sanity/queries";
 import { type Post } from "@/sanity/schemas/post";
 import getMdx from "@/utils/getMdx";
 import { useQuery } from "@tanstack/react-query";
@@ -19,6 +19,7 @@ export default function PreviewBlogPost({
   preview: boolean;
 }) {
   const post: Post = usePreview(null, postQueryBySlug, { slug });
+  const { socials } = usePreview(null, `${settingsQuery} { _id, socials}`);
   const { data: source, isLoading } = useQuery(
     ["post"],
     () => getSource(post.body),
@@ -29,5 +30,7 @@ export default function PreviewBlogPost({
     return <Loading />;
   }
 
-  return <BlogPost preview={preview} post={post} source={source} />;
+  return (
+    <BlogPost preview={preview} post={post} source={source} socials={socials} />
+  );
 }
