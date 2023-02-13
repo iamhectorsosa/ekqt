@@ -7,9 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { lazy } from "react";
 import { PreviewSuspense } from "next-sanity/preview";
 import Loading from "@/components/UI/Loading";
-import { Settings } from "@/sanity/schemas/settings";
 const PreviewBlogPost = lazy(() => import("@/components/blog/PreviewBlogPost"));
-
 const queryClient = new QueryClient();
 
 export default function Blog({

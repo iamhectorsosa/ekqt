@@ -7,6 +7,7 @@ import {
   type MDXRemoteSerializeResult,
 } from "next-mdx-remote";
 import { Settings } from "@/sanity/schemas/settings";
+import Pre from "../UI/Pre";
 
 const components = {
   blockquote: ({ children }: { children: React.ReactNode }) => (
@@ -16,6 +17,7 @@ const components = {
       </blockquote>
     </div>
   ),
+  pre: Pre,
 } as MDXRemoteProps["components"];
 
 export default function BlogPost({
