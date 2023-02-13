@@ -2,7 +2,6 @@ import { type InferGetStaticPropsType } from "next";
 import { getAllPosts, getSettings } from "@/sanity/queries";
 import Layout from "@/components/layout/Layout";
 import Card from "@/components/UI/Card";
-import { Settings } from "@/sanity/schemas/settings";
 
 export default function Blog({
   socials,
