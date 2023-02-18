@@ -10,7 +10,12 @@ export default async function getMdx(source: string) {
       development: process.env.NODE_ENV !== "production",
       rehypePlugins: [
         rehypeSlug,
-        rehypePrism,
+        [
+          rehypePrism,
+          {
+            showLineNumbers: true,
+          },
+        ],
         [
           rehypeAutolinkHeadings,
           {

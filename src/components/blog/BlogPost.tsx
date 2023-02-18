@@ -8,6 +8,7 @@ import {
 } from "next-mdx-remote";
 import { Settings } from "@/sanity/schemas/settings";
 import Pre from "../UI/Pre";
+import Anchor from "../UI/Anchor";
 
 const components = {
   blockquote: ({ children }: { children: React.ReactNode }) => (
@@ -58,7 +59,7 @@ export default function BlogPost({
         </header>
         <article
           aria-label="Post"
-          className="prose:slate prose min-w-full dark:prose-invert lg:prose-lg"
+          className="prose min-w-full prose-p:font-light prose-li:font-light dark:prose-invert lg:prose-lg"
         >
           <MDXRemote {...source} components={components} />
         </article>
