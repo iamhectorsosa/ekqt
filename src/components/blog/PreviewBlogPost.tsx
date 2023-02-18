@@ -21,7 +21,7 @@ export default function PreviewBlogPost({
   const post: Post = usePreview(null, postQueryBySlug, { slug });
   const { socials } = usePreview(null, `${settingsQuery} { _id, socials}`);
   const { data: source, isLoading } = useQuery(
-    ["post"],
+    ["post", post],
     () => getSource(post.body),
     { enabled: !!post.body }
   );
