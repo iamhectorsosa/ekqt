@@ -28,6 +28,9 @@ export default function Pre({
       }, [])}
       className="relative"
     >
+      <span className="absolute -top-2 left-4 z-10 rounded border border-transparent bg-[#1d1f21] px-1 font-mono text-sm font-semibold tracking-tighter text-gray-300">
+        .{className.replace("language-", "")}
+      </span>
       {supportsClipboard && (
         <button
           onClick={() => copyToClipboard(code)}
