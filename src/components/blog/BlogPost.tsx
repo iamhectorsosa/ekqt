@@ -11,6 +11,22 @@ import Pre from "../UI/Pre";
 import Anchor from "../UI/Anchor";
 
 const components = {
+  a: ({
+    children,
+    className,
+  }: {
+    children: React.ReactNode;
+    className: string;
+  }) => {
+    if (className) {
+      return <a className={className}>{children}</a>;
+    }
+    return (
+      <span className="not-prose">
+        <Anchor>{children}</Anchor>
+      </span>
+    );
+  },
   blockquote: ({ children }: { children: React.ReactNode }) => (
     <div className="not-prose after:leading-0 relative my-8 rounded-md border border-transparent bg-slate-200/50 p-8 before:absolute before:top-2 before:left-4 before:text-9xl before:opacity-10 before:content-[open-quote] after:invisible after:absolute after:content-[close-quote] dark:bg-slate-800/75">
       <blockquote className="text-lg font-medium leading-relaxed md:text-2xl md:leading-9">
