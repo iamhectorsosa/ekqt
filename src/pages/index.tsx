@@ -1,6 +1,6 @@
 import Layout from "@/components/layout/Layout";
-import Anchor from "@/components/UI/Anchor";
-import Pre from "@/components/UI/Pre";
+import Anchor from "@/components/ui/Anchor";
+import Pre from "@/components/ui/Pre";
 import {
   ProseH1,
   ProseH2,
@@ -12,7 +12,7 @@ import {
   ProseInlineCode,
   ProseStrong,
   ProseAnchor,
-} from "@/components/UI/typography";
+} from "@/components/ui/typography";
 import { getSettings } from "@/sanity/queries";
 import getMdx from "@/utils/getMdx";
 import { InferGetStaticPropsType } from "next";
