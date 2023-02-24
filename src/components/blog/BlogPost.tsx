@@ -8,19 +8,19 @@ import {
 } from "next-mdx-remote";
 import { Settings } from "@/sanity/schemas/settings";
 
+import Pre from "../ui/Pre";
 import {
+  ProseAnchor,
+  ProseBlockquote,
   ProseH1,
   ProseH2,
   ProseH3,
   ProseH4,
-  ProseP,
-  ProseBlockquote,
-  ProseUL,
   ProseInlineCode,
+  ProseP,
   ProseStrong,
-  ProseAnchor,
+  ProseUL,
 } from "../ui/typography";
-import Pre from "../ui/Pre";
 
 const components = {
   pre: Pre,
