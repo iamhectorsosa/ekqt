@@ -26,15 +26,15 @@ export default function Pre({
       ref={useCallback(() => {
         navigator.clipboard && setSupportsClipboard(true);
       }, [])}
-      className="relative"
+      className="pre relative my-8"
     >
-      <span className="absolute -top-2 left-4 z-10 rounded border border-transparent bg-[#1d1f21] px-1 font-mono text-sm font-semibold tracking-tighter text-gray-300">
+      <span className="absolute -top-2 left-4 z-10 rounded border border-transparent bg-neutral-900 px-1 font-mono text-sm font-semibold tracking-tighter text-gray-300">
         .{className.replace("language-", "")}
       </span>
       {supportsClipboard && (
         <button
           onClick={() => copyToClipboard(code)}
-          className="absolute right-4 top-4 z-10 rounded border border-gray-500 bg-[#1d1f21] p-2 text-gray-400 transition-transform hover:scale-105 active:scale-95"
+          className="absolute right-4 top-4 z-10 rounded border border-gray-500 bg-neutral-900 p-2 text-gray-400 transition-transform hover:scale-105 active:scale-95"
         >
           {clipboardState ? (
             <svg
@@ -73,7 +73,7 @@ export default function Pre({
         ref={useCallback((node: HTMLPreElement) => {
           navigator.clipboard && node?.textContent && setCode(node.textContent);
         }, [])}
-        className={className}
+        className={`overflow-scroll rounded bg-neutral-900 px-4 pt-5 pb-3 text-sm text-slate-100 lg:px-5 lg:pt-6 lg:pb-4 lg:text-base  ${className}`}
       >
         {children}
       </pre>

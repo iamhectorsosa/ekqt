@@ -1,4 +1,4 @@
-import Anchor from "../UI/Anchor";
+import Anchor from "../ui/Anchor";
 
 export default function Preview() {
   return (
