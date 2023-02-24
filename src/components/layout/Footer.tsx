@@ -1,6 +1,6 @@
 import { Settings } from "@/sanity/schemas/settings";
 import dayjs from "dayjs";
-import Anchor from "../UI/Anchor";
+import Anchor from "../ui/Anchor";
 
 type FooterProps = {
   socials: Settings["socials"];

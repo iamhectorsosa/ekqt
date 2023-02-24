@@ -7,34 +7,32 @@ import {
   type MDXRemoteSerializeResult,
 } from "next-mdx-remote";
 import { Settings } from "@/sanity/schemas/settings";
-import Pre from "../UI/Pre";
-import Anchor from "../UI/Anchor";
+import Pre from "../ui/Pre";
+import {
+  ProseH1,
+  ProseH2,
+  ProseH3,
+  ProseH4,
+  ProseP,
+  ProseBlockquote,
+  ProseUL,
+  ProseInlineCode,
+  ProseStrong,
+  ProseAnchor,
+} from "../ui/typography";
 
 const components = {
-  a: ({
-    children,
-    className,
-  }: {
-    children: React.ReactNode;
-    className: string;
-  }) => {
-    if (className) {
-      return <a className={className}>{children}</a>;
-    }
-    return (
-      <span className="not-prose">
-        <Anchor>{children}</Anchor>
-      </span>
-    );
-  },
-  blockquote: ({ children }: { children: React.ReactNode }) => (
-    <div className="not-prose after:leading-0 relative my-8 rounded-md border border-transparent bg-slate-200/50 p-8 before:absolute before:top-2 before:left-4 before:text-9xl before:opacity-10 before:content-[open-quote] after:invisible after:absolute after:content-[close-quote] dark:bg-slate-800/75">
-      <blockquote className="text-lg font-medium leading-relaxed md:text-2xl md:leading-9">
-        {children}
-      </blockquote>
-    </div>
-  ),
   pre: Pre,
+  h1: ProseH1,
+  h2: ProseH2,
+  h3: ProseH3,
+  h4: ProseH4,
+  p: ProseP,
+  a: ProseAnchor,
+  strong: ProseStrong,
+  blockquote: ProseBlockquote,
+  ul: ProseUL,
+  code: ProseInlineCode,
 } as MDXRemoteProps["components"];
 
 export default function BlogPost({
@@ -58,7 +56,7 @@ export default function BlogPost({
     >
       <section>
         <header className="mb-6 space-y-2">
-          <h2 className="text-3xl font-bold sm:text-5xl">{post.title}</h2>
+          <h2 className="text-4xl font-bold sm:text-5xl">{post.title}</h2>
           <div className="text-sm text-slate-500">
             {!post.publishedAt || !post.readingTime ? (
               "Draft"
@@ -73,10 +71,7 @@ export default function BlogPost({
             )}
           </div>
         </header>
-        <article
-          aria-label="Post"
-          className="prose min-w-full prose-p:font-light prose-li:font-light dark:prose-invert lg:prose-lg"
-        >
+        <article aria-label="Post">
           <MDXRemote {...source} components={components} />
         </article>
       </section>
