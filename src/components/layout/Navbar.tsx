@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Anchor from "../ui/Anchor";
+import Anchor from "../UI/Anchor";
 import { pages } from "./Layout";
 import { useRouter } from "next/router";
 

@@ -4,7 +4,7 @@ import { type Post } from "@/sanity/schemas/post";
 import getMdx from "@/utils/getMdx";
 import { useQuery } from "@tanstack/react-query";
 import { type MDXRemoteSerializeResult } from "next-mdx-remote";
-import Loading from "../ui/Loading";
+import Loading from "../UI/Loading";
 import BlogPost from "./BlogPost";
 
 async function getSource(body: string): Promise<MDXRemoteSerializeResult> {
