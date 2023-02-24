@@ -7,7 +7,7 @@ import {
   type MDXRemoteSerializeResult,
 } from "next-mdx-remote";
 import { Settings } from "@/sanity/schemas/settings";
-import Pre from "../ui/Pre";
+
 import {
   ProseH1,
   ProseH2,
@@ -20,6 +20,7 @@ import {
   ProseStrong,
   ProseAnchor,
 } from "../ui/typography";
+import Pre from "../ui/Pre";
 
 const components = {
   pre: Pre,
