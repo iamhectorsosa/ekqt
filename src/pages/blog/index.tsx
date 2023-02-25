@@ -2,6 +2,7 @@ import { type InferGetStaticPropsType } from "next";
 import { getAllPosts, getSettings } from "@/sanity/queries";
 import Layout from "@/components/layout/Layout";
 import Card from "@/components/ui/Card";
+import { ProseH1 } from "@/components/ui/typography";
 
 export default function Blog({
   socials,
@@ -11,7 +12,7 @@ export default function Blog({
     <Layout title="Blog" description="Read more" path="blog" socials={socials}>
       <section>
         <header className="mb-6">
-          <h2 className="text-3xl font-bold sm:text-4xl">All Posts</h2>
+          <ProseH1>All Posts</ProseH1>
         </header>
         <div className="divide-y divide-slate-500">
           {posts.map((post, index) => (

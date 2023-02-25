@@ -2,6 +2,7 @@ import Link from "next/link";
 import Anchor from "../ui/Anchor";
 import { pages } from "./Layout";
 import { useRouter } from "next/router";
+import { ProseH2 } from "../ui/typography";
 
 type NavbarProps = {
   links?: Array<{
@@ -19,13 +20,13 @@ export default function Navbar({ links }: NavbarProps) {
     >
       <div className="container-width grid gap-3">
         <Link href="/">
-          <h2 className="w-fit text-2xl font-bold md:text-3xl">
+          <ProseH2>
             {router.pathname === "/"
               ? "Hector Sosa"
               : pages
                   .filter((i) => i.href !== "/")
                   .find((i) => router.pathname.includes(i.href))?.label}
-          </h2>
+          </ProseH2>
         </Link>
         <div className="flex items-center justify-end gap-3">
           {links?.map(({ href, label }, index) => (

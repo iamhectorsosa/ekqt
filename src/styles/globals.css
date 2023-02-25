@@ -4,7 +4,7 @@
 
 @layer components {
   .container-width {
-    @apply mx-auto max-w-3xl p-6;
+    @apply mx-auto max-w-3xl p-6 2xl:max-w-5xl;
   }
 }
 
