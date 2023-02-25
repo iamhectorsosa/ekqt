@@ -28,7 +28,7 @@ export default function Pre({
       }, [])}
       className="pre relative my-8"
     >
-      <span className="absolute -top-2 left-4 z-10 rounded border border-transparent bg-neutral-900 px-1 font-mono text-sm font-semibold tracking-tighter text-gray-300">
+      <span className="absolute -top-2 left-6 z-10 rounded border border-transparent bg-neutral-900 px-1 font-mono text-sm font-semibold tracking-tighter text-gray-300">
         .{className.replace("language-", "")}
       </span>
       {supportsClipboard && (
@@ -73,7 +73,7 @@ export default function Pre({
         ref={useCallback((node: HTMLPreElement) => {
           navigator.clipboard && node?.textContent && setCode(node.textContent);
         }, [])}
-        className={`overflow-scroll rounded bg-neutral-900 px-4 pt-5 pb-3 text-sm text-slate-100 lg:px-5 lg:pt-6 lg:pb-4 lg:text-base  ${className}`}
+        className={`overflow-scroll rounded bg-neutral-900 px-4 pt-5 pb-3 text-sm text-slate-100 md:px-5 md:pt-6 md:pb-4 md:text-base  ${className}`}
       >
         {children}
       </pre>

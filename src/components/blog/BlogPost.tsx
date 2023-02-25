@@ -1,40 +1,10 @@
 import Layout from "@/components/layout/Layout";
 import dayjs from "dayjs";
 import { type Post } from "@/sanity/schemas/post";
-import {
-  MDXRemote,
-  type MDXRemoteProps,
-  type MDXRemoteSerializeResult,
-} from "next-mdx-remote";
+import { MDXRemote, type MDXRemoteSerializeResult } from "next-mdx-remote";
 import { Settings } from "@/sanity/schemas/settings";
-
-import Pre from "@/components/ui/Pre";
-import {
-  ProseAnchor,
-  ProseBlockquote,
-  ProseH1,
-  ProseH2,
-  ProseH3,
-  ProseH4,
-  ProseInlineCode,
-  ProseP,
-  ProseStrong,
-  ProseUL,
-} from "@/components/ui/typography";
-
-const components = {
-  pre: Pre,
-  h1: ProseH1,
-  h2: ProseH2,
-  h3: ProseH3,
-  h4: ProseH4,
-  p: ProseP,
-  a: ProseAnchor,
-  strong: ProseStrong,
-  blockquote: ProseBlockquote,
-  ul: ProseUL,
-  code: ProseInlineCode,
-} as MDXRemoteProps["components"];
+import { mdxComponents } from "@/lib/mdxComponents";
+import { ProseH1, ProseSubtle } from "../ui/typography";
 
 export default function BlogPost({
   post,
@@ -57,8 +27,8 @@ export default function BlogPost({
     >
       <section>
         <header className="mb-6 space-y-2">
-          <h2 className="text-4xl font-bold sm:text-5xl">{post.title}</h2>
-          <div className="text-sm text-slate-500">
+          <ProseH1>{post.title}</ProseH1>
+          <ProseSubtle>
             {!post.publishedAt || !post.readingTime ? (
               "Draft"
             ) : (
@@ -70,10 +40,10 @@ export default function BlogPost({
                 <span> {post.readingTime} min read</span>
               </>
             )}
-          </div>
+          </ProseSubtle>
         </header>
         <article aria-label="Post">
-          <MDXRemote {...source} components={components} />
+          <MDXRemote {...source} components={mdxComponents} />
         </article>
       </section>
     </Layout>

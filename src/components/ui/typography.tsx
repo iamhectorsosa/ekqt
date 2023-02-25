@@ -1,4 +1,17 @@
 import { ComponentPropsWithoutRef, forwardRef } from "react";
+import { twMerge } from "tailwind-merge";
+
+const HeadingAnchor = (props: React.ComponentPropsWithoutRef<"a">) => {
+  const { children, ...otherProps } = props;
+  return (
+    <a
+      className="after:ml-2 after:opacity-80 hover:after:content-['#']"
+      {...otherProps}
+    >
+      {children}
+    </a>
+  );
+};
 
 const ProseH1 = forwardRef<HTMLHeadingElement, ComponentPropsWithoutRef<"h1">>(
   (props, ref) => {
@@ -11,12 +24,7 @@ const ProseH1 = forwardRef<HTMLHeadingElement, ComponentPropsWithoutRef<"h1">>(
         {...otherProps}
       >
         {id ? (
-          <a
-            className="after:ml-2 after:text-slate-500 hover:after:content-['#']"
-            href={`#${id}`}
-          >
-            {children}
-          </a>
+          <HeadingAnchor href={`#${id}`}>{children}</HeadingAnchor>
         ) : (
           children
         )}
@@ -38,12 +46,7 @@ const ProseH2 = forwardRef<HTMLHeadingElement, ComponentPropsWithoutRef<"h2">>(
         {...otherProps}
       >
         {id ? (
-          <a
-            className="after:ml-2 after:text-slate-500 hover:after:content-['#']"
-            href={`#${id}`}
-          >
-            {children}
-          </a>
+          <HeadingAnchor href={`#${id}`}>{children}</HeadingAnchor>
         ) : (
           children
         )}
@@ -65,12 +68,7 @@ const ProseH3 = forwardRef<HTMLHeadingElement, ComponentPropsWithoutRef<"h3">>(
         {...otherProps}
       >
         {id ? (
-          <a
-            className="after:ml-2 after:text-slate-500 hover:after:content-['#']"
-            href={`#${id}`}
-          >
-            {children}
-          </a>
+          <HeadingAnchor href={`#${id}`}>{children}</HeadingAnchor>
         ) : (
           children
         )}
@@ -83,21 +81,19 @@ ProseH3.displayName = "ProseH3";
 
 const ProseH4 = forwardRef<HTMLHeadingElement, ComponentPropsWithoutRef<"h4">>(
   (props, ref) => {
-    const { children, id, ...otherProps } = props;
+    const { children, id, className, ...otherProps } = props;
     return (
       <h4
         id={id}
-        className="mt-8 scroll-m-20 text-xl font-bold tracking-tight lg:text-2xl"
+        className={`${twMerge(
+          "mt-8 scroll-m-20 text-xl font-semibold tracking-tight lg:text-2xl",
+          className
+        )}`}
         ref={ref}
         {...otherProps}
       >
         {id ? (
-          <a
-            className="after:ml-2 after:text-slate-500 hover:after:content-['#']"
-            href={`#${id}`}
-          >
-            {children}
-          </a>
+          <HeadingAnchor href={`#${id}`}>{children}</HeadingAnchor>
         ) : (
           children
         )}
@@ -112,10 +108,13 @@ const ProseLead = forwardRef<
   HTMLParagraphElement,
   ComponentPropsWithoutRef<"p">
 >((props, ref) => {
-  const { children, ...otherProps } = props;
+  const { children, className, ...otherProps } = props;
   return (
     <p
-      className="mt-2 text-xl font-medium opacity-80"
+      className={`${twMerge(
+        "mt-2 text-xl font-medium leading-relaxed opacity-80",
+        className
+      )}`}
       ref={ref}
       {...otherProps}
     >
@@ -126,12 +125,33 @@ const ProseLead = forwardRef<
 
 ProseLead.displayName = "ProseLead";
 
+const ProseSubtle = forwardRef<
+  HTMLParagraphElement,
+  ComponentPropsWithoutRef<"p">
+>((props, ref) => {
+  const { children, className, ...otherProps } = props;
+  return (
+    <p
+      className={`${twMerge("text-slate-500 dark:text-slate-400", className)}`}
+      ref={ref}
+      {...otherProps}
+    >
+      {children}
+    </p>
+  );
+});
+
+ProseSubtle.displayName = "ProseSubtle";
+
 const ProseP = forwardRef<HTMLParagraphElement, ComponentPropsWithoutRef<"p">>(
   (props, ref) => {
-    const { children, ...otherProps } = props;
+    const { children, className, ...otherProps } = props;
     return (
       <p
-        className="text-lg font-light leading-loose [&:not(:first-of-type)]:mt-4"
+        className={`${twMerge(
+          "text-lg font-light leading-loose [&:not(:first-of-type)]:mt-4",
+          className
+        )}`}
         ref={ref}
         {...otherProps}
       >
@@ -174,15 +194,32 @@ const ProseAnchor = forwardRef<
 
 ProseAnchor.displayName = "ProseAnchor";
 
+const QuoteIcon = (props: React.ComponentPropsWithoutRef<"svg">) => {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 409.294 409.294"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden
+      {...props}
+    >
+      <path d="M0 204.647v175.412h175.412V204.647H58.471c0-64.48 52.461-116.941 116.941-116.941V29.235C78.684 29.235 0 107.919 0 204.647zM409.294 87.706V29.235c-96.728 0-175.412 78.684-175.412 175.412v175.412h175.412V204.647H292.353c0-64.48 52.461-116.941 116.941-116.941z" />
+    </svg>
+  );
+};
+
 const ProseBlockquote = forwardRef<
   HTMLQuoteElement,
   ComponentPropsWithoutRef<"blockquote">
 >((props, ref) => {
   const { children, ...otherProps } = props;
   return (
-    <div className="relative my-4 p-8 before:absolute before:top-2 before:left-4 before:font-serif before:text-9xl before:opacity-10 before:content-[open-quote] after:sr-only after:content-[close-quote]">
+    <div className="relative my-4 py-6 px-9 lg:px-16">
+      <QuoteIcon className="absolute top-8 left-1 opacity-10 lg:left-6" />
       <blockquote
-        className="text-xl font-medium leading-loose md:text-2xl md:leading-10"
+        className="text-xl font-light leading-10 lg:text-2xl lg:leading-loose [&>p]:text-xl [&>p]:leading-loose lg:[&>p]:text-2xl lg:[&>p]:leading-10"
         ref={ref}
         {...otherProps}
       >
@@ -235,6 +272,7 @@ export {
   ProseH3,
   ProseH4,
   ProseLead,
+  ProseSubtle,
   ProseP,
   ProseStrong,
   ProseAnchor,

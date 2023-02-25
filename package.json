@@ -31,6 +31,7 @@
     "rehype-slug": "^5.1.0",
     "sanity-plugin-iframe-pane": "^2.1.1",
     "styled-components": "^5.3.6",
+    "tailwind-merge": "^1.10.0",
     "typescript": "4.9.5",
     "zod": "^3.20.2"
   },

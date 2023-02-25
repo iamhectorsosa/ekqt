@@ -33,7 +33,6 @@ export default async function handler(req: NextRequest) {
             alignItems: "center",
             justifyContent: "center",
             padding: "60px",
-            letterSpacing: "-0.05em",
             textAlign: "center",
             color: "#f8fafc",
             backgroundColor: "#0f172a",
@@ -44,6 +43,7 @@ export default async function handler(req: NextRequest) {
               width: "auto",
               fontSize: 90,
               padding: "8px 0",
+              letterSpacing: "-0.04em",
             }}
           >
             {title}
