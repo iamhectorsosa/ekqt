@@ -17,7 +17,7 @@ export default function Pre({
   const [code, setCode] = useState<string>("");
 
   return (
-    <div className="pre relative my-8">
+    <div className="pre relative mt-6">
       <FileTag
         fileExtension={languageClass.replace("language-", "")}
         className="absolute -top-2 left-6 bg-neutral-100 font-mono text-slate-700 shadow-inner dark:bg-neutral-900 dark:text-slate-400 dark:shadow-none"

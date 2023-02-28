@@ -1,5 +1,6 @@
 import { ComponentPropsWithoutRef, forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
+import { cn } from "@/lib/utils";
 
 const HeadingAnchor = (props: React.ComponentPropsWithoutRef<"a">) => {
   const { children, ...otherProps } = props;
@@ -15,11 +16,14 @@ const HeadingAnchor = (props: React.ComponentPropsWithoutRef<"a">) => {
 
 const ProseH1 = forwardRef<HTMLHeadingElement, ComponentPropsWithoutRef<"h1">>(
   (props, ref) => {
-    const { children, id, ...otherProps } = props;
+    const { children, id, className, ...otherProps } = props;
     return (
       <h1
         id={id}
-        className="mt-8 scroll-m-20 text-4xl font-bold tracking-tight lg:text-5xl"
+        className={cn(
+          "mt-8 scroll-m-20 text-4xl font-bold tracking-tight lg:text-5xl",
+          className
+        )}
         ref={ref}
         {...otherProps}
       >
