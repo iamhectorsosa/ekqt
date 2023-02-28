@@ -40,12 +40,10 @@ body {
 .token.prolog,
 .token.doctype,
 .token.cdata,
-.token.plain-text {
+.token.plain-text,
+.token.punctuation,
+.token.operator {
   @apply text-gray-500 dark:text-gray-500;
-}
-
-.token.punctuation {
-  @apply text-gray-400 dark:text-gray-300;
 }
 
 .token.property,
@@ -56,22 +54,18 @@ body {
 
 .token.class-name,
 .token.maybe-class-name,
-.token.builtin {
+.token.builtin,
+.token.boolean,
+.token.constant,
+.language-css .token.string,
+.style .token.string {
   @apply text-emerald-600 dark:text-emerald-500;
 }
 
-.token.boolean,
-.token.constant {
-  @apply text-green-800 dark:text-green-400;
-}
-
 .token.symbol,
-.token.deleted {
-  @apply text-rose-800 dark:text-rose-500;
-}
-
+.token.deleted,
 .token.number {
-  @apply text-fuchsia-600 dark:text-fuchsia-300;
+  @apply text-rose-600 dark:text-rose-400;
 }
 
 .token.selector,
@@ -90,10 +84,6 @@ body {
   @apply text-violet-600 dark:text-violet-300;
 }
 
-.token.operator {
-  @apply text-gray-400 dark:text-gray-100;
-}
-
 .token.entity {
   @apply text-yellow-200 dark:text-yellow-100;
 }
@@ -102,26 +92,12 @@ body {
   @apply text-blue-600 dark:text-blue-300;
 }
 
-.language-css .token.string,
-.style .token.string {
-  @apply text-green-800 dark:text-green-500;
-}
-
 .token.atrule,
-.token.attr-value {
-  @apply text-amber-600 dark:text-amber-200;
-}
-
-.token.function {
-  @apply text-amber-600 dark:text-amber-200;
-}
-
-.token.regex {
-  @apply text-amber-800 dark:text-amber-400;
-}
-
+.token.attr-value,
+.token.function,
+.token.regex,
 .token.important {
-  @apply text-amber-900 dark:text-amber-500;
+  @apply text-amber-600 dark:text-amber-200;
 }
 
 .token.important,
