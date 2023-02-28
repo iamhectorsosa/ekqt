@@ -1,10 +1,15 @@
-import { useCallback, useState } from "react";
+import {
+  ComponentPropsWithoutRef,
+  forwardRef,
+  useCallback,
+  useState,
+} from "react";
 import { useClipboard } from "@/lib/hooks";
 import { twMerge } from "tailwind-merge";
 
 export default function Pre({
   children,
-  className,
+  className: languageClass,
 }: {
   children: React.ReactNode;
   className: string;
@@ -14,26 +19,46 @@ export default function Pre({
   return (
     <div className="pre relative my-8">
       <FileTag
-        fileExtension={className.replace("language-", "")}
-        className="absolute -top-2 left-6 bg-neutral-100  text-slate-700 shadow-inner dark:bg-neutral-900 dark:text-slate-400 dark:shadow-none"
+        fileExtension={languageClass.replace("language-", "")}
+        className="absolute -top-2 left-6 bg-neutral-100 font-mono text-slate-700 shadow-inner dark:bg-neutral-900 dark:text-slate-400 dark:shadow-none"
       />
       <CopyButton
         code={code}
         className="absolute right-4 top-4 z-10 border-slate-400 bg-neutral-100 text-slate-700 dark:border-slate-400 dark:bg-neutral-900 dark:text-slate-400"
       />
-      <pre
+      <CustomPre
         ref={useCallback((node: HTMLPreElement) => {
           node?.textContent && setCode(node.textContent);
         }, [])}
-        className={`overflow-scroll rounded-md bg-neutral-100 px-4 pt-5 pb-3 text-sm text-slate-700 shadow-inner dark:bg-neutral-900 dark:text-slate-100 dark:shadow-none md:px-5 md:pt-6 md:pb-4 md:text-base ${className}`}
+        className={`bg-neutral-100 font-mono text-slate-700 shadow-inner dark:bg-neutral-900   dark:text-slate-100 dark:shadow-none ${languageClass}`}
       >
         {children}
-      </pre>
+      </CustomPre>
     </div>
   );
 }
 
-// ADDITIONAL COMPONENTS
+// SUPPORTING COMPONENTS
+
+const CustomPre = forwardRef<HTMLPreElement, ComponentPropsWithoutRef<"pre">>(
+  (props, ref) => {
+    const { children, className, ...otherProps } = props;
+    return (
+      <pre
+        className={`${twMerge(
+          "overflow-scroll rounded-md px-4 pt-5 pb-3 text-sm md:px-5 md:pt-6 md:pb-4 md:text-base",
+          className
+        )}`}
+        ref={ref}
+        {...otherProps}
+      >
+        {children}
+      </pre>
+    );
+  }
+);
+
+CustomPre.displayName = "CustomPre";
 
 const FileTag = ({
   fileExtension,
@@ -45,7 +70,7 @@ const FileTag = ({
   return (
     <span
       className={`${twMerge(
-        "rounded border border-transparent px-1 font-mono text-sm font-semibold tracking-tighter",
+        "rounded border border-transparent px-1 text-sm font-semibold tracking-tighter",
         className
       )}`}
     >
