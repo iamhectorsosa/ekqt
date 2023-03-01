@@ -42,7 +42,8 @@ body {
 .token.cdata,
 .token.plain-text,
 .token.punctuation,
-.token.operator {
+.token.operator,
+.linenumber {
   @apply text-gray-500 dark:text-gray-500;
 }
 

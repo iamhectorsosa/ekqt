@@ -1,64 +1,65 @@
-import {
-  ComponentPropsWithoutRef,
-  forwardRef,
-  useCallback,
-  useState,
-} from "react";
 import { useClipboard } from "@/lib/hooks";
-import { twMerge } from "tailwind-merge";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { cn } from "@/lib/utils";
 
-export default function Pre({
+export default function CodeBlock({
   children,
-  className: languageClass,
+  language,
+  className,
 }: {
-  children: React.ReactNode;
-  className: string;
+  children: string;
+  language: string;
+  className?: string;
 }) {
-  const [code, setCode] = useState<string>("");
-
   return (
-    <div className="pre relative mt-9 mb-3">
+    <div className="relative">
       <FileTag
-        fileExtension={languageClass.replace("language-", "")}
+        fileExtension={language}
         className="absolute -top-2 left-6 bg-neutral-100 font-mono text-slate-700 shadow-inner dark:bg-neutral-900 dark:text-slate-400 dark:shadow-none"
       />
       <CopyButton
-        code={code}
+        code={children}
         className="absolute right-4 top-4 z-10 border-slate-400 bg-neutral-100 text-slate-700 dark:border-slate-400 dark:bg-neutral-900 dark:text-slate-400"
       />
-      <CustomPre
-        ref={useCallback((node: HTMLPreElement) => {
-          node?.textContent && setCode(node.textContent);
-        }, [])}
-        className={`bg-neutral-100 font-mono text-slate-700 shadow-inner dark:bg-neutral-900   dark:text-slate-100 dark:shadow-none ${languageClass}`}
+      <CodeWrapper
+        language={language}
+        className={cn(
+          "bg-neutral-100 font-mono text-slate-700 shadow-inner dark:bg-neutral-900  dark:text-slate-100 dark:shadow-none",
+          className
+        )}
       >
         {children}
-      </CustomPre>
+      </CodeWrapper>
     </div>
   );
 }
 
 // SUPPORTING COMPONENTS
 
-const CustomPre = forwardRef<HTMLPreElement, ComponentPropsWithoutRef<"pre">>(
-  (props, ref) => {
-    const { children, className, ...otherProps } = props;
-    return (
-      <pre
-        className={`${twMerge(
-          "overflow-scroll rounded-md px-4 pt-5 pb-3 text-sm md:px-5 md:pt-6 md:pb-4 md:text-base",
-          className
-        )}`}
-        ref={ref}
-        {...otherProps}
-      >
-        {children}
-      </pre>
-    );
-  }
-);
-
-CustomPre.displayName = "CustomPre";
+const CodeWrapper = ({
+  children,
+  className,
+  language,
+}: {
+  children: string;
+  className: string;
+  language: string;
+}) => {
+  return (
+    <SyntaxHighlighter
+      useInlineStyles={false}
+      showLineNumbers
+      language={language}
+      style={{}}
+      className={cn(
+        "overflow-scroll rounded-md pl-1 pr-9 pt-6 pb-3 text-sm md:text-base",
+        className
+      )}
+    >
+      {children}
+    </SyntaxHighlighter>
+  );
+};
 
 const FileTag = ({
   fileExtension,
@@ -69,10 +70,10 @@ const FileTag = ({
 }) => {
   return (
     <span
-      className={`${twMerge(
+      className={cn(
         "rounded border border-transparent px-1 text-sm font-semibold tracking-tighter",
         className
-      )}`}
+      )}
     >
       .{fileExtension}
     </span>
@@ -91,10 +92,10 @@ const CopyButton = ({
   return (
     <button
       onClick={() => clipboard.copy(code)}
-      className={`${twMerge(
+      className={cn(
         "rounded border p-2 transition-transform hover:scale-105 active:scale-95",
         className
-      )}`}
+      )}
     >
       {clipboard.copied ? (
         <svg

@@ -1,5 +1,4 @@
 import { ComponentPropsWithoutRef, forwardRef } from "react";
-import { twMerge } from "tailwind-merge";
 import { cn } from "@/lib/utils";
 
 const HeadingAnchor = (props: React.ComponentPropsWithoutRef<"a">) => {
@@ -41,11 +40,14 @@ ProseH1.displayName = "ProseH1";
 
 const ProseH2 = forwardRef<HTMLHeadingElement, ComponentPropsWithoutRef<"h2">>(
   (props, ref) => {
-    const { children, id, ...otherProps } = props;
+    const { children, id, className, ...otherProps } = props;
     return (
       <h2
         id={id}
-        className="mt-8 scroll-m-20 text-3xl font-bold tracking-tight lg:text-4xl"
+        className={cn(
+          "mt-8 scroll-m-20 text-3xl font-bold tracking-tight lg:text-4xl",
+          cn
+        )}
         ref={ref}
         {...otherProps}
       >
@@ -63,11 +65,14 @@ ProseH2.displayName = "ProseH2";
 
 const ProseH3 = forwardRef<HTMLHeadingElement, ComponentPropsWithoutRef<"h3">>(
   (props, ref) => {
-    const { children, id, ...otherProps } = props;
+    const { children, id, className, ...otherProps } = props;
     return (
       <h3
         id={id}
-        className="mt-8 scroll-m-20 text-2xl font-bold tracking-tight lg:text-3xl"
+        className={cn(
+          "mt-8 scroll-m-20 text-2xl font-bold tracking-tight lg:text-3xl",
+          className
+        )}
         ref={ref}
         {...otherProps}
       >
@@ -89,10 +94,10 @@ const ProseH4 = forwardRef<HTMLHeadingElement, ComponentPropsWithoutRef<"h4">>(
     return (
       <h4
         id={id}
-        className={`${twMerge(
+        className={cn(
           "mt-8 scroll-m-20 text-xl font-semibold tracking-tight lg:text-2xl",
           className
-        )}`}
+        )}
         ref={ref}
         {...otherProps}
       >
@@ -115,10 +120,10 @@ const ProseLead = forwardRef<
   const { children, className, ...otherProps } = props;
   return (
     <p
-      className={`${twMerge(
+      className={cn(
         "mt-2 text-xl font-medium leading-relaxed opacity-80",
         className
-      )}`}
+      )}
       ref={ref}
       {...otherProps}
     >
@@ -136,7 +141,7 @@ const ProseSubtle = forwardRef<
   const { children, className, ...otherProps } = props;
   return (
     <p
-      className={`${twMerge("text-slate-500 dark:text-slate-400", className)}`}
+      className={cn("text-slate-500 dark:text-slate-400", className)}
       ref={ref}
       {...otherProps}
     >
@@ -152,10 +157,10 @@ const ProseP = forwardRef<HTMLParagraphElement, ComponentPropsWithoutRef<"p">>(
     const { children, className, ...otherProps } = props;
     return (
       <p
-        className={`${twMerge(
-          "text-lg font-light leading-loose [&:not(:first-of-type)]:mt-4",
+        className={cn(
+          "text-lg font-light leading-loose [&:not(:first-child)]:mt-4",
           className
-        )}`}
+        )}
         ref={ref}
         {...otherProps}
       >
@@ -240,7 +245,7 @@ const ProseUL = forwardRef<HTMLUListElement, ComponentPropsWithoutRef<"ul">>(
     const { children, ...otherProps } = props;
     return (
       <ul
-        className="my-6 ml-4 list-inside list-disc text-lg font-light leading-loose marker:text-slate-500 [&>li]:mt-3 [&>li>p]:inline"
+        className="my-2 ml-4 list-inside list-disc text-lg font-light leading-loose marker:text-slate-500 [&>li]:mt-2 [&>li>p]:inline"
         ref={ref}
         {...otherProps}
       >
