@@ -46,4 +46,8 @@ export const pages = [
     href: "/components",
     label: "Components",
   },
+  {
+    href: "/hooks",
+    label: "Hooks",
+  },
 ];

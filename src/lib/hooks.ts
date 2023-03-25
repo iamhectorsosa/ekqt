@@ -1,35 +1,33 @@
 import { useState } from "react";
 
+/**
+ * Writes the specified text string to the system clipboard
+ * using `Clipboard.writeText()`
+ * ref: [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard/writeText)
+ */
 export const useClipboard = ({ timeout = 2500 } = {}) => {
-  const [error, setError] = useState<Error | null>(null);
-  const [copied, setCopied] = useState(false);
+  const [state, setState] = useState<boolean | Error>(false);
   const [copyTimeout, setCopyTimeout] =
     useState<ReturnType<typeof setTimeout>>();
 
-  const handleCopyResult = (value: boolean) => {
+  function handleCopyResult(result: boolean | Error) {
     clearTimeout(copyTimeout);
-    setCopyTimeout(setTimeout(() => setCopied(false), timeout));
-    setCopied(value);
-  };
+    setCopyTimeout(setTimeout(() => setState(false), timeout));
+    setState(result);
+  }
 
-  const copy = (valueToCopy: string) => {
+  function copy(valueToCopy: string) {
     if ("clipboard" in navigator) {
       navigator.clipboard
         .writeText(valueToCopy)
         .then(() => handleCopyResult(true))
-        .catch((err) => setError(err));
+        .catch((err) => err instanceof Error && handleCopyResult(err));
     } else {
-      setError(
-        new Error("useClipboard: Navigation Clipboard is not supported")
+      handleCopyResult(
+        new Error("`useClipboard`: Navigation Clipboard is not supported")
       );
     }
-  };
+  }
 
-  const reset = () => {
-    setCopied(false);
-    setError(null);
-    clearTimeout(copyTimeout);
-  };
-
-  return { copy, reset, error, copied };
+  return { copy, state };
 };
