@@ -15,9 +15,11 @@ export default function Blog({
           <ProseH1>All Posts</ProseH1>
         </header>
         <div className="divide-y divide-slate-500">
-          {posts.map((post, index) => (
-            <Card key={index} post={post} />
-          ))}
+          {posts
+            .filter((post) => post.publishedAt)
+            .map((post, index) => (
+              <Card key={index} post={post} />
+            ))}
         </div>
       </section>
     </Layout>

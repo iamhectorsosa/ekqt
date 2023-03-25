@@ -45,7 +45,11 @@ export default function BlogPost({
             <ProseH1>{post.title}</ProseH1>
             <ProseSubtle>
               {!post.publishedAt || !post.readingTime ? (
-                "Draft"
+                <>
+                  <span>Draft</span>
+                  {" · "}
+                  <span> {post.readingTime} min read</span>
+                </>
               ) : (
                 <>
                   <span>
