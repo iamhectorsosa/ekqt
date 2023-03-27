@@ -1,6 +1,7 @@
-import { definePlugin, StringInputProps } from 'sanity';
-import { markdownSchemaType } from './schema';
-import { ReactElement } from 'react';
+/* eslint-disable no-unused-vars */
+import { definePlugin, StringInputProps } from "sanity";
+import { markdownSchemaType } from "./schema";
+import { ReactElement } from "react";
 
 export interface MarkdownConfig {
   /**
@@ -42,7 +43,7 @@ export interface MarkdownConfig {
 
 export const markdownSchema = definePlugin((config: MarkdownConfig | void) => {
   return {
-    name: 'markdown-editor',
+    name: "markdown-editor",
     schema: {
       types: [
         config && config.input

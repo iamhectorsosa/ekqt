@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Meta, { type MetaProps } from "../Meta";
@@ -13,7 +14,7 @@ export default function Layout({
   socials,
   preview = false,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   socials: Settings["socials"];
   preview?: boolean;
 } & MetaProps) {

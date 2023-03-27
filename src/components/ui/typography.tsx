@@ -1,7 +1,7 @@
 import { ComponentPropsWithoutRef, forwardRef } from "react";
 import { cn } from "@/lib/utils";
 
-const HeadingAnchor = (props: React.ComponentPropsWithoutRef<"a">) => {
+const HeadingAnchor = (props: ComponentPropsWithoutRef<"a">) => {
   const { children, ...otherProps } = props;
   return (
     <a
@@ -46,7 +46,7 @@ const ProseH2 = forwardRef<HTMLHeadingElement, ComponentPropsWithoutRef<"h2">>(
         id={id}
         className={cn(
           "mt-8 scroll-m-20 text-3xl font-bold tracking-tight lg:text-4xl",
-          cn
+          className
         )}
         ref={ref}
         {...otherProps}
@@ -203,7 +203,7 @@ const ProseAnchor = forwardRef<
 
 ProseAnchor.displayName = "ProseAnchor";
 
-const QuoteIcon = (props: React.ComponentPropsWithoutRef<"svg">) => {
+const QuoteIcon = (props: ComponentPropsWithoutRef<"svg">) => {
   return (
     <svg
       width="20"

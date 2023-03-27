@@ -1,21 +1,21 @@
 import Layout from "@/components/layout/Layout";
 import { ProseH2, ProseInlineCode, ProseP } from "@/components/ui/typography";
-import { mdxComponents } from "@/lib/mdxComponents";
 import { getSettings } from "@/sanity/queries";
-import getMdx from "@/utils/getMdx";
 import { InferGetStaticPropsType } from "next";
-import { MDXRemote } from "next-mdx-remote";
 
 import fs from "fs";
 import path from "path";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CodeBlock from "@/components/components/helpers/CodeBlock";
 import { CopyButton } from "@/components/ui/Pre";
+import { useTimeout } from "@/hooks";
 
 export default function Hooks({
   socials,
-  component,
+  clipboard,
+  timeout,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const timer = useTimeout(() => alert("Hello! 👋🏼"), 2000);
   return (
     <Layout
       title="Hooks"
@@ -61,7 +61,41 @@ export default function Hooks({
               className="my-0 h-[20rem] overflow-scroll"
               language="tsx"
             >
-              {component}
+              {clipboard}
+            </CodeBlock>
+          </TabsContent>
+        </Tabs>
+      </section>
+      <section className="my-8 space-y-4">
+        <ProseH2>Use Timeout</ProseH2>
+        <ProseP>
+          Execute a function after a specified delay using{" "}
+          <ProseInlineCode>window.setTimeout()</ProseInlineCode> and{" "}
+          <ProseInlineCode>window.clearTimeout()</ProseInlineCode>
+        </ProseP>
+        <Tabs defaultValue="preview">
+          <TabsList>
+            <TabsTrigger value="preview">Preview</TabsTrigger>
+            <TabsTrigger value="code">Code</TabsTrigger>
+          </TabsList>
+          <TabsContent value="preview">
+            <div className="grid h-[20rem] items-center overflow-scroll rounded-md border border-slate-200 p-6 dark:border-slate-700">
+              <div className="flex flex-col items-center justify-center gap-3">
+                <button
+                  onClick={() => timer.call()}
+                  className="flex w-fit items-center justify-center gap-2 rounded border border-slate-500 bg-neutral-100 p-2 px-4 py-3 text-slate-700 transition-transform hover:scale-105 active:scale-95 dark:border-slate-400 dark:bg-neutral-900 dark:text-slate-400"
+                >
+                  Call Alert after 2 seconds
+                </button>
+              </div>
+            </div>
+          </TabsContent>
+          <TabsContent value="code">
+            <CodeBlock
+              className="my-0 h-[20rem] overflow-scroll"
+              language="tsx"
+            >
+              {timeout}
             </CodeBlock>
           </TabsContent>
         </Tabs>
@@ -76,15 +110,21 @@ export async function getStaticProps() {
     socials
   }`);
 
-  const component = fs.readFileSync(
-    path.join("src/lib", "hooks" + ".ts"),
+  const clipboard = fs.readFileSync(
+    path.join("src/hooks", "useClipboard" + ".ts"),
+    "utf8"
+  );
+
+  const timeout = fs.readFileSync(
+    path.join("src/hooks", "useTimeout" + ".ts"),
     "utf8"
   );
 
   return {
     props: {
       socials,
-      component,
+      clipboard,
+      timeout,
     },
     revalidate: 60,
   };

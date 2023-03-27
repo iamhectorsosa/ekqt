@@ -1,5 +1,5 @@
 import { type SanityDocument } from "@sanity/client";
-import { CogIcon, CheckmarkCircleIcon } from "@sanity/icons";
+import { CogIcon } from "@sanity/icons";
 import dayjs from "dayjs";
 
 import { z } from "zod";

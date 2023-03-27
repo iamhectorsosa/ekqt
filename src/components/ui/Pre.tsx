@@ -4,10 +4,10 @@ import React, {
   useCallback,
   useState,
 } from "react";
-import { useClipboard } from "@/lib/hooks";
 import { twMerge } from "tailwind-merge";
 import { CopyIcon, ErrorIcon, SuccessIcon } from "../components/icons";
 import { cn } from "@/lib/utils";
+import { useClipboard } from "@/hooks";
 
 export default function Pre({
   children,
@@ -101,14 +101,12 @@ export const CopyButton = ({
       )}
     >
       {children}
-      {clipboard.state ? (
-        clipboard.state instanceof Error ? (
-          <ErrorIcon className="text-red-500" />
-        ) : (
-          <SuccessIcon className="text-green-500" />
-        )
-      ) : (
+      {clipboard.state === "READY" ? (
         <CopyIcon />
+      ) : clipboard.state === "SUCCESS" ? (
+        <SuccessIcon className="text-green-500" />
+      ) : (
+        <ErrorIcon className="text-red-500" />
       )}
     </button>
   );

@@ -1,8 +1,9 @@
-import { defineType, StringDefinition } from 'sanity';
-import { MarkdownInput } from './components/MarkdownInput';
-import { SanityImageAssetDocument } from '@sanity/client';
+/* eslint-disable no-unused-vars */
+import { defineType, StringDefinition } from "sanity";
+import { MarkdownInput } from "./components/MarkdownInput";
+import { SanityImageAssetDocument } from "@sanity/client";
 
-export const markdownTypeName = 'markdown' as const;
+export const markdownTypeName = "markdown" as const;
 
 export interface MarkdownOptions {
   /**
@@ -29,12 +30,12 @@ export interface MarkdownOptions {
  * @public
  */
 export interface MarkdownDefinition
-  extends Omit<StringDefinition, 'type' | 'fields' | 'options'> {
+  extends Omit<StringDefinition, "type" | "fields" | "options"> {
   type: typeof markdownTypeName;
   options?: MarkdownOptions;
 }
 
-declare module '@sanity/types' {
+declare module "@sanity/types" {
   // makes type: 'markdown' narrow correctly when using defineType/defineField/defineArrayMember
   export interface IntrinsicDefinitions {
     markdown: MarkdownDefinition;
@@ -42,8 +43,8 @@ declare module '@sanity/types' {
 }
 
 export const markdownSchemaType = defineType({
-  type: 'string',
+  type: "string",
   name: markdownTypeName,
-  title: 'Markdown',
+  title: "Markdown",
   components: { input: MarkdownInput },
 });

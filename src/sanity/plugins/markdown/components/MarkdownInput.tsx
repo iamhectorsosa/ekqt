@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import "easymde/dist/easymde.min.css";
 import { type Options as EasyMdeOptions } from "easymde";
 import React, { useCallback, useMemo } from "react";

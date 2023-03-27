@@ -1,7 +1,8 @@
 import cx from "@/utils/cx";
 import Link from "next/link";
+import { ComponentPropsWithoutRef } from "react";
 
-type AnchorProps = React.ComponentPropsWithoutRef<"a"> & {
+type AnchorProps = ComponentPropsWithoutRef<"a"> & {
   variant?: "external" | "nav";
 };
 
@@ -9,7 +10,6 @@ export default function Anchor({
   children,
   variant,
   href,
-  className,
   ...props
 }: AnchorProps) {
   return (

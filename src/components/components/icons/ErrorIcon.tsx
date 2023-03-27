@@ -1,6 +1,7 @@
+import { ComponentPropsWithoutRef } from "react";
 import { cn } from "@/lib/utils";
 
-export function ErrorIcon(props: React.ComponentPropsWithoutRef<"svg">) {
+export function ErrorIcon(props: ComponentPropsWithoutRef<"svg">) {
   const { className, ...otherProps } = props;
   return (
     <svg
