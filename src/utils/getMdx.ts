@@ -1,6 +1,7 @@
 import { serialize } from "next-mdx-remote/serialize";
 import rehypeSlug from "rehype-slug";
 import rehypePrism from "rehype-prism-plus";
+import remarkMdxCodeMeta from "remark-mdx-code-meta";
 
 export default async function getMdx(source: string) {
   return await serialize(source, {
@@ -16,6 +17,7 @@ export default async function getMdx(source: string) {
           },
         ],
       ],
+      remarkPlugins: [remarkMdxCodeMeta],
       format: "mdx",
     },
   });

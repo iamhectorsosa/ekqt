@@ -11,19 +11,21 @@ import { useClipboard } from "@/hooks";
 
 export default function Pre({
   children,
-  className: languageClass,
+  fileName,
 }: {
   children: React.ReactNode;
-  className: string;
+  fileName?: string;
 }) {
   const [code, setCode] = useState<string>("");
 
   return (
     <div className="pre relative mt-9 mb-3">
-      <FileTag
-        fileExtension={languageClass.replace("language-", "")}
-        className="absolute -top-2 left-6 bg-neutral-100 font-mono text-slate-700 shadow-inner dark:bg-neutral-900 dark:text-slate-400 dark:shadow-none"
-      />
+      {fileName && (
+        <FileTag
+          fileExtension={fileName}
+          className="absolute -top-2 left-6 bg-neutral-100 font-mono text-slate-700 shadow-inner dark:bg-neutral-900 dark:text-slate-400 dark:shadow-none"
+        />
+      )}
       <CopyButton
         code={code}
         className="absolute right-4 top-4 z-10 border-slate-400 bg-neutral-100 text-slate-700 dark:border-slate-400 dark:bg-neutral-900 dark:text-slate-400"
@@ -32,7 +34,7 @@ export default function Pre({
         ref={useCallback((node: HTMLPreElement) => {
           node?.textContent && setCode(node.textContent);
         }, [])}
-        className={`bg-neutral-100 font-mono text-slate-700 shadow-inner dark:bg-neutral-900   dark:text-slate-100 dark:shadow-none ${languageClass}`}
+        className={`bg-neutral-100 font-mono text-slate-700 shadow-inner dark:bg-neutral-900   dark:text-slate-100 dark:shadow-none`}
       >
         {children}
       </CustomPre>
