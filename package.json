@@ -22,7 +22,7 @@
     "easymde": "^2.18.0",
     "eslint-config-next": "13.1.6",
     "framer-motion": "^10.0.0",
-    "next": "13.1.6",
+    "next": "^13.3.0",
     "next-mdx-remote": "^4.2.0",
     "next-sanity": "^4.1.2",
     "react": "18.2.0",
